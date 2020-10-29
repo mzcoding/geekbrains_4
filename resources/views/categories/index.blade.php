@@ -32,3 +32,8 @@
         </div>
     </div>
 @stop
+@push('js')
+    <script>
+        alert('Hello');
+    </script>
+@endpush

@@ -45,7 +45,7 @@
 
 <!-- Custom scripts for this template -->
 <script src="{{ asset('js/clean-blog.min.js') }}"></script>
-
+@stack('js')
 </body>
 
 </html>

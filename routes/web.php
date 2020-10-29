@@ -1,6 +1,5 @@
 <?php
 //declare(strict_types=1);
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,17 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\NewsController::class, 'index']);
 Route::group(['prefix' => 'admin'], function() {
-  Route::get('/news', [\App\Http\Controllers\Admin\NewsController::class, 'index'])
-	  ->name('admin.news');
-  Route::get('/news/create', [\App\Http\Controllers\Admin\NewsController::class, 'create']);
-  Route::get('/news/edit/{id}', [\App\Http\Controllers\Admin\NewsController::class, 'edit'])
-	  ->where('id', '\d+');
-  Route::get('/news/delete/{id}', [\App\Http\Controllers\Admin\NewsController::class, 'destroy'])
-	  ->where('id', '\d+');
+  Route::resource('/news', \App\Http\Controllers\Admin\NewsController::class);
 });
 
 //categories

@@ -51,4 +51,6 @@ $response = tap($kernel->handle(
     $request = Request::capture()
 ))->send();
 
+
+
 $kernel->terminate($request, $response);

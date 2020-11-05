@@ -2,16 +2,15 @@
 @section('content')
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
-        @if(isset($name))
-            Переменная name = {{ $name }}
+        <h2>{{ $news->title }}</h2>
+
+        @if($news->image)
+            <img src="{{ $news->image }}">
         @endif
-
-   @if($slug === 'one')
-       <h1>Ура, вы победили</h1>
-   @else
-       <strong>Новость</strong>  {!! $slug  !!}
-   @endif
-
+        <br>
+        <div>
+            {!! $news->description !!}
+        </div>
     </div>
   </div>
 @stop

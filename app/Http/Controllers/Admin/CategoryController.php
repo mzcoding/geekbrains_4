@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\News;
+use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
-class NewsController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-
+        //
     }
 
     /**
@@ -26,7 +25,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('admin.news.create');
+        //
     }
 
     /**
@@ -37,27 +36,16 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-    	$request->validate([
-    		'title' => 'required'
-		]);
-
-    	$data = $request->only(['title', 'author', 'description']);
-    	$data['slug'] = Str::slug($data['title']);
-    	$create = News::create($data);
-    	if($create) {
-    		 return back()->with('success', 'Новость успешно добавлена');
-		}
-
-    	return back()->with('fail', 'Не удалось добавить новость');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\News  $news
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(News $news)
+    public function show(Category $category)
     {
         //
     }
@@ -65,10 +53,10 @@ class NewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\News  $news
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(News $news)
+    public function edit(Category $category)
     {
         //
     }
@@ -77,10 +65,10 @@ class NewsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\News  $news
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, News $news)
+    public function update(Request $request, Category $category)
     {
         //
     }
@@ -88,10 +76,10 @@ class NewsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\News  $news
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(News $news)
+    public function destroy(Category $category)
     {
         //
     }

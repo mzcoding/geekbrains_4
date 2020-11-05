@@ -2,30 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
   public function index()
   {
-  	return view('categories.index', ['categories' => $this->categoryList]);
+  	$categories = Category::paginate(3);
+
+  	return view('categories.index', ['categories' => $categories]);
   }
 
 	/**
 	 * @param int $id
-	 * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+	 * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
 	 */
   public function show(int $id)
   {
-  	 $newsList = [];
-  	 foreach($this->newsList as $news) {
-  	 	 if(is_array($news)) {
-  	 	 	 if(isset($news['category_id']) && intval($news['category_id']) === $id) {
-  	 	 	 	$newsList[] = $news;
-			 }
-		 }
+
+  	 $category = Category::find($id);
+  	 if(!$category) {
+  	 	 return abort(404);
 	 }
 
-  	 return view('categories.show', ['news' => $newsList]);
+  	 $newsList = $category->news()->paginate(1);
+  	 return view('categories.show', ['newsList' => $newsList]);
   }
 }

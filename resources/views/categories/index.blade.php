@@ -2,24 +2,24 @@
 @section('content')
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            @forelse($categories as $key => $category)
+            @forelse($categories as $category)
                 <div class="post-preview">
-                    <a href="{{ route('categories.show', ['id' => $key]) }}">
+                    <a href="{{ route('categories.show', ['id' => $category->id]) }}">
                         <h2 class="post-title">
-                            {{ $category['title'] }}
+                            {{ $category->title }}
                         </h2>
                         <h3 class="post-subtitle">
-                            {{ $category['description'] }}
+                            {{ $category->description }}
                         </h3>
                     </a>
                     <p class="post-meta">Опубликовал
                         <a href="#">Админ</a>
-                        {{ \Carbon\Carbon::now() }}</p>
+                        {{ $category->created_at->format('d-m-Y H:i') }}</p>
                 </div>
                 <hr>
             @empty
                 <h3>Категорий нет</h3>
-        @endforelse
+            @endforelse
 
 
 
@@ -27,13 +27,8 @@
 
         <!-- Pager -->
             <div class="clearfix">
-                <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+                {{ $categories->links() }}
             </div>
         </div>
     </div>
 @stop
-@push('js')
-    <script>
-        alert('Hello');
-    </script>
-@endpush

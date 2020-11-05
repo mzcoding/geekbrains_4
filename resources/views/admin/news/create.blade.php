@@ -1,6 +1,15 @@
 @extends('layouts.app')
 @section('content')
+
+
     <div class="col-8 offset-2">
+        @if(session()->has('success'))
+            <div class="alert alert-success">Новость успешно добавлена</div>
+        @elseif(session()->has('fail'))
+            <div class="alert alert-danger">Не удалось добавить новость</div>
+        @endif
+
+
         <h3>Добавление новости</h3>
         <br>
         <form method="post" action="{{ route('news.store') }}">

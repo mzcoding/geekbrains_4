@@ -4,8 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class News extends Model
 {
     use HasFactory;
+
+    protected $table = "news";
+
+    protected $fillable = [
+		'title', 'author', 'description', 'slug'
+	];
+
+	//protected $guarded = ['id'];
+
+	protected  $casts = [
+		 'published' => 'boolean'
+	];
+
 }

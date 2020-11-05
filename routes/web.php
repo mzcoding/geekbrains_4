@@ -27,7 +27,7 @@ Route::get('/categories/{id}', [\App\Http\Controllers\CategoryController::class,
 //news
 Route::get('/news', [\App\Http\Controllers\NewsController::class, 'index'])->name('news');
 Route::get('/news/{slug}', [\App\Http\Controllers\NewsController::class, 'show'])
-	->where('slug', '\w+')
+	//->where('slug', '\w+')
 	->name('news.show');
 
 
@@ -36,3 +36,5 @@ Route::get('/news/{slug}', [\App\Http\Controllers\NewsController::class, 'show']
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+

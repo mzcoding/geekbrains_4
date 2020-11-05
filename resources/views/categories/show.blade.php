@@ -2,19 +2,19 @@
 @section('content')
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            @forelse($news as $n)
+            @forelse($newsList as $news)
                 <div class="post-preview">
-                    <a href="{{ route('news.show', ['slug' => $n['slug']]) }}">
+                    <a href="{{ route('news.show', ['slug' => $news->slug]) }}">
                         <h2 class="post-title">
-                            {{ $n['title'] }}
+                            {{ $news->title }}
                         </h2>
                         <h3 class="post-subtitle">
-                            {{ $n['description'] }}
+                            {{ $news->description }}
                         </h3>
                     </a>
                     <p class="post-meta">Опубликовал
-                        <a href="#">Админ</a>
-                        {{ \Carbon\Carbon::now() }}</p>
+                        <a href="#">{{ $news->author }}</a>
+                        {{ $news->created_at->format('Y-m-d H:i') }}</p>
                 </div>
                 <hr>
             @empty
@@ -26,9 +26,10 @@
 
 
         <!-- Pager -->
-            <div class="clearfix">
-                <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-            </div>
+
+
+                {!! $newsList->links()  !!}
         </div>
     </div>
+
 @stop

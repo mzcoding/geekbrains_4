@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsCreate;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class NewsController extends Controller
 {
@@ -16,7 +18,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-
+    	$news = News::orderBy('id', 'desc')->paginate(5);
+		return view('admin.news.index', ['news' => $news]);
     }
 
     /**
@@ -35,20 +38,16 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NewsCreate $request)
     {
-    	$request->validate([
-    		'title' => 'required'
-		]);
-
-    	$data = $request->only(['title', 'author', 'description']);
-    	$data['slug'] = Str::slug($data['title']);
-    	$create = News::create($data);
-    	if($create) {
-    		 return back()->with('success', 'Новость успешно добавлена');
+		$data = $request->validated();
+		$data['slug'] = Str::slug($data['title']);
+		$create = News::create($data);
+		if ($create) {
+			return redirect()->route('news.index')->with('success', 'Новость успешно добавлена');
 		}
 
-    	return back()->with('fail', 'Не удалось добавить новость');
+		return back()->with('fail', 'Не удалось добавить новость');
     }
 
     /**
@@ -70,7 +69,7 @@ class NewsController extends Controller
      */
     public function edit(News $news)
     {
-        //
+		return view('admin.news.edit', ['news' => $news]);
     }
 
     /**
@@ -82,7 +81,18 @@ class NewsController extends Controller
      */
     public function update(Request $request, News $news)
     {
-        //
+		$request->validate([
+			'title' => 'required'
+		]);
+		$data = $request->only(['title', 'author', 'description']);
+		$data['slug'] = Str::slug($data['title']);
+
+		$news->fill($data);
+		if($news->save()) {
+			return redirect()->route('news.index');
+		}
+
+		return back();
     }
 
     /**
@@ -93,6 +103,7 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        //
+    	$news->delete();
+        return response()->json(['data' => 'delete']);
     }
 }

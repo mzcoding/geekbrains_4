@@ -38,3 +38,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+Route::get('/with', function() {
+	$categories = \App\Models\Category::with('news')->get();
+	dump($categories);
+});

@@ -44,10 +44,10 @@ class NewsController extends Controller
 		$data['slug'] = Str::slug($data['title']);
 		$create = News::create($data);
 		if ($create) {
-			return redirect()->route('news.index')->with('success', 'Новость успешно добавлена');
+			return redirect()->route('news.index')->with('success', __('messages.news.create.succes'));
 		}
 
-		return back()->with('fail', 'Не удалось добавить новость');
+		return back()->with('fail', trans('messages.news.create.fail'));
     }
 
     /**

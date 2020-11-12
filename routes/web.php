@@ -15,8 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [\App\Http\Controllers\NewsController::class, 'index']);
-Route::group(['prefix' => 'admin'], function() {
-  Route::resource('/news', \App\Http\Controllers\Admin\NewsController::class);
+Route::group(['middleware' => 'auth'], function() {
+  Route::group(['prefix' => 'account'], function() {
+		Route::get('/', [\App\Http\Controllers\Account\IndexController::class, 'index'])
+			   ->name('account');
+  });
+  Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
+   Route::resource('/news', \App\Http\Controllers\Admin\NewsController::class);
+  });
 });
 
 //categories

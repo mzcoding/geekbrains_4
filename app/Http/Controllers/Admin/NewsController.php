@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\NewsEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsCreate;
 use App\Models\News;
@@ -44,6 +45,7 @@ class NewsController extends Controller
 		$data['slug'] = Str::slug($data['title']);
 		$create = News::create($data);
 		if ($create) {
+			event(new NewsEvent($create));
 			return redirect()->route('news.index')->with('success', __('messages.news.create.succes'));
 		}
 

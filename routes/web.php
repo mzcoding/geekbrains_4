@@ -48,3 +48,12 @@ Route::get('/with', function() {
 	$categories = \App\Models\Category::with('news')->get();
 	dump($categories);
 });
+
+Route::get('/parser', [\App\Http\Controllers\ParserController::class, 'index']);
+
+Route::group(['middleware' => 'guest'], function() {
+	Route::get('login/vk', [\App\Http\Controllers\VkSocialite::class, 'redirectToProvider'])
+		->name('vk.login');
+	Route::get('login/vk/callback', [\App\Http\Controllers\VkSocialite::class, 'handleProviderCallback'])
+		->name('vk.login.callback');
+});

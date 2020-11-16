@@ -58,6 +58,7 @@
                                     {{ __('Вход') }}
                                 </button>
 
+                                <a href="{{ route('vk.login') }}">Вход через вк</a>
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Забыли пароль?') }}

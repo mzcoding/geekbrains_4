@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\NewsEvent;
+use App\Listeners\LastLoginUpdateListener;
+use App\Listeners\NewsUpdateImageListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +21,16 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+		'Illuminate\Auth\Events\Login' => [
+             LastLoginUpdateListener::class
+		],
+		NewsEvent::class => [
+			 NewsUpdateImageListener::class
+		],
+		\SocialiteProviders\Manager\SocialiteWasCalled::class => [
+			// ... other providers
+			'SocialiteProviders\\VKontakte\\VKontakteExtendSocialite@handle',
+		],
     ];
 
     /**

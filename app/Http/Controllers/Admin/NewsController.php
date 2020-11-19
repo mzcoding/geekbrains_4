@@ -43,6 +43,14 @@ class NewsController extends Controller
     {
 		$data = $request->validated();
 		$data['slug'] = Str::slug($data['title']);
+		if($request->hasFile('image')) {
+			$file = $request->file('image');
+			$fileName = $file->getClientOriginalName();
+			$fileExt  = $file->getClientOriginalExtension();
+
+
+			$data['image'] = $file->storeAs('news', $fileName, 'uploads');
+		}
 		$create = News::create($data);
 		if ($create) {
 			event(new NewsEvent($create));

@@ -27,8 +27,8 @@ class NewsUpdateImageListener
     public function handle($event)
     {
         if(isset($event->news) && $event->news instanceof News) {
-        	$event->news->image = "изображение";
-        	$event->news->save();
+        	//$event->news->image = "изображение";
+        	//$event->news->save();
 		}
     }
 }
